@@ -1,0 +1,21 @@
+{
+  "name": "news-vj-chart-renderer",
+  "description": "Display a chart given a set data structure",
+  "main": "chartRenderer.js",
+  "authors": [
+    "Patrick Asare <patrick.asare@bbc.co.uk>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "chart"
+  ],
+  "homepage": "https://github.com/bbc/news-vj-chart-renderer",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
