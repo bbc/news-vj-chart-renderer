@@ -1,40 +1,70 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+    'use strict';
     grunt.loadNpmTasks('grunt-contrib-jasmine');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-jslint');
 
     grunt.initConfig({
 
         jasmine: {
             src: 'chartRenderer.js',
             options: {
-                keepRunner: false,
+                keepRunner: true,
                 specs: 'tests/*Spec.js',
                 template: require('grunt-template-jasmine-requirejs'),
+                outfile: '_SpecRunner.html',
                 templateOptions: {
                     requireConfig: {
                         baseUrl: './',
                         paths: {
-                            'chartRenderer': './chartRenderer'
+                            newsVjChartRenderer: 'newsVjChartRenderer',
+                            chartJsRenderingModule: 'chartRenderingModules/chartjsRenderer',
+                            fixtureData: 'examples/fixtureData/fixtureData',
+                            chartjs: 'examples/js/libs/chartjs/chart.min'
                         }
                     }
                 }
             }
         },
 
-        jshint: {
-            all: ['Gruntfile.js', 'chartRenderer.js', 'tests/*.js']
-        },
-
         watch: {
             scripts: {
                 files: ['chartRenderer.js', 'tests/*.js'],
                 tasks: ['default']
-            },
+            }
+        },
+
+        jslint: {
+            client: {
+                src: [
+                    'Gruntfile.js',
+                    'chartRenderer.js',
+                    'chartRenderingModules/chartjsRenderer.js',
+                    'examples/js/app.js',
+                    'examples/fixtureData/fixtureData.js',
+                    'tests/chartRendererSpec.js'
+                ],
+                directives: {
+                    browser: true,
+                    predef: [
+                        'module',
+                        'require',
+                        'requirejs',
+                        'define',
+                        'console',
+                        'it',
+                        'describe',
+                        'expect'
+                    ]
+                },
+                options: {
+                    junit: 'out/client-junit.xml'
+                }
+            }
         }
 
     });
 
     grunt.registerTask('test', ['jasmine']);
-    grunt.registerTask('default', ['jshint', 'test']);
+    grunt.registerTask('default', ['jslint', 'jasmine']);
 };
