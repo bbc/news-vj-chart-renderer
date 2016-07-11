@@ -3,8 +3,8 @@ requirejs.config({
     paths: {
         app: 'js/app',
         newsVjChartRenderer: '../newsVjChartRenderer',
-        chartJsRenderingModule: '../chartRenderingModules/chartjsRenderer',
-        chartjs: 'js/libs/chartjs/chart.min',
+        chartJsRenderingModule: '../chartRenderingModules/chartjsRendererV2',
+        chartjs: 'js/libs/chartjs/Chart.min',
         fixtureData : 'fixtureData/fixtureData'
     }
 });

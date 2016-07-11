@@ -18,9 +18,9 @@ module.exports = function (grunt) {
                         baseUrl: './',
                         paths: {
                             newsVjChartRenderer: 'newsVjChartRenderer',
-                            chartJsRenderingModule: 'chartRenderingModules/chartjsRenderer',
+                            chartJsRenderingModule: 'chartRenderingModules/chartjsRendererV2',
                             fixtureData: 'examples/fixtureData/fixtureData',
-                            chartjs: 'examples/js/libs/chartjs/chart.min'
+                            chartjs: 'examples/js/libs/chartjs/Chart.min'
                         }
                     }
                 }
@@ -38,8 +38,8 @@ module.exports = function (grunt) {
             client: {
                 src: [
                     'Gruntfile.js',
-                    'chartRenderer.js',
-                    'chartRenderingModules/chartjsRenderer.js',
+                    'newsVjChartRenderer.js',
+                    'chartRenderingModules/chartjsRendererV2.js',
                     'examples/js/app.js',
                     'examples/fixtureData/fixtureData.js',
                     'tests/chartRendererSpec.js'
