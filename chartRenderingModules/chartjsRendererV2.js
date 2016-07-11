@@ -129,7 +129,7 @@ define(function () {
         },
 
         renderChart: function () {
-            var chartType = this.getChartType,
+            var chartType = this.getChartType(),
                 chart;
 
             this.setCanvasContext();
