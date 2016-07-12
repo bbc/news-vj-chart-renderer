@@ -133,6 +133,7 @@ define(function () {
                 chart;
 
             this.setCanvasContext();
+            this.transformOptions(chartType);
 
             chart = new this.chartObj.chartLibrary(this.canvasContext, {
                 type: chartType,
@@ -153,6 +154,45 @@ define(function () {
             rgba += this.getRandomNumber(0, 255) + ',';
             rgba += this.getRandomNumber(0, 255) + ',1)';
             return rgba;
+        },
+
+        transformAnimationConfig: function (type) {
+            var initialAnimationValue = this.chartObj.chartOpts.animation,
+                typeSpecificTransformations = {
+                    pie: function () {
+                        var newAnimationObject = {
+                            animateRotate: this.chartObj.chartOpts.animateRotate,
+                            animateScale: this.chartObj.chartOpts.animateScale,
+                            easingFunction: this.chartObj.chartOpts.animationEasing,
+                            duration: 1000
+                        };
+
+                        delete this.chartObj.chartOpts.animateRotate;
+                        delete this.chartObj.chartOpts.animateScale;
+                        delete this.chartObj.chartOpts.animationEasing;
+                        delete this.chartObj.chartOpts.animationSteps;
+
+                        return newAnimationObject;
+                    }.bind(this)
+                };
+
+            // always delete initial animation property
+            // uses default animation config if no animation property
+            delete this.chartObj.chartOpts.animation;
+
+            // if transformation for current chart type exists, perform it
+            if (typeSpecificTransformations[type]) {
+                this.chartObj.chartOpts.animation = typeSpecificTransformations[type]();
+            }
+
+            // if animation was initially set to boolean false, set duration to 0
+            if (initialAnimationValue === false) {
+                this.chartObj.chartOpts.animation.duration = 0;
+            }
+        },
+
+        transformOptions: function (type) {
+            this.transformAnimationConfig(type);
         }
     };
 
