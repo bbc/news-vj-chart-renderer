@@ -191,33 +191,59 @@ define(function () {
             }
         },
 
-        transformLegendConfig: function () {
+        barLineLegendCallback: function (chart) {
+            var legendHtml = [],
+                legendSymbolType = {
+                    bar: 'squares',
+                    horizontalBar: 'squares',
+                    line: 'lines'
+                },
+                chartType = this.getChartType(),
+                i;
+
+            legendHtml.push('<ul class="' + chartType + '-legend line-legend-list--inline legendChartJs">');
+            for (i = 0; i < chart.data.datasets.length; i = i + 1) {
+                legendHtml.push('<li>');
+                legendHtml.push('<div class="line-legend-list__' + legendSymbolType[chartType] + '" style="background-color:' + chart.data.datasets[i].backgroundColor + ';"></div>');
+                if (chart.data.datasets[i].label) {
+                    legendHtml.push(chart.data.datasets[i].label);
+                }
+                legendHtml.push('</li>');
+            }
+            legendHtml.push('</ul>');
+
+            return legendHtml.join('');
+        },
+
+        pieLegendCallback: function (chart) {
+            var legendHtml = [],
+                i;
+
+            legendHtml.push('<ul class="pie-legend line-legend-list legendChartJs">');
+            for (i = 0; i < chart.data.datasets[0].data.length; i = i + 1) {
+                legendHtml.push('<li>');
+                legendHtml.push('<div class="line-legend-list__squares" style="background-color:' + chart.data.datasets[0].backgroundColor[i] + ';"></div>');
+                if (chart.data.labels[i]) {
+                    legendHtml.push(chart.data.labels[i]);
+                }
+                legendHtml.push('</li>');
+            }
+            legendHtml.push('</ul>');
+
+            return legendHtml.join('');
+        },
+
+        transformLegendConfig: function (type) {
             this.chartObj.chartOpts.legend = {
                 display: false
             };
 
-            this.chartObj.chartOpts.legendCallback = function (chart) {
-                var legendHtml = [],
-                    i;
-
-                legendHtml.push('<ul class="' + this.getChartType() + '-legend line-legend-list--inline legendChartJs">');
-                for (i = 0; i < chart.data.datasets.length; i = i + 1) {
-                    legendHtml.push('<li>');
-                    legendHtml.push('<div class="line-legend-list__squares" style="background-color:' + chart.data.datasets[i].backgroundColor + ';"></div>');
-                    if (chart.data.datasets[i].label) {
-                        legendHtml.push(chart.data.datasets[i].label);
-                    }
-                    legendHtml.push('</li>')
-                }
-                legendHtml.push('</ul>');
-
-                return legendHtml.join('');
-            }.bind(this);
+            this.chartObj.chartOpts.legendCallback = type === 'pie' ? this.pieLegendCallback : this.barLineLegendCallback.bind(this);
         },
 
         transformOptions: function (type) {
             this.transformAnimationConfig(type);
-            this.transformLegendConfig();
+            this.transformLegendConfig(type);
         }
     };
 
