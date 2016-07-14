@@ -97,31 +97,37 @@ define(function () {
                 customDatasetOpts = opts.customDatasetOpts[i],
                 mainColor = opts.mainColor,
                 datasetTypes = {
-                    bar: {
-                        label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
-                        backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : mainColor,
-                        borderColor: this.customDataOptsSet ? customDatasetOpts.strokeColor : mainColor,
-                        hoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.highlightFill : mainColor,
-                        hoverBorderColor: this.customDataOptsSet ? customDatasetOpts.highlightStroke : mainColor
-                    },
-                    line: {
-                        label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
-                        fill: false,
-                        backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : 'rgba(220,220,220,0.2)',
-                        borderColor: this.customDataOptsSet ? customDatasetOpts.strokeColor : mainColor,
-                        pointBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointColor : mainColor,
-                        pointBorderColor: this.customDataOptsSet ? customDatasetOpts.pointStrokeColor : mainColor,
-                        pointHoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightFill : mainColor,
-                        pointHoverBorderColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightStroke : mainColor
-                    },
-                    pie: {
-                        label: this.customDataOptsSet ? customDatasetOpts.label : 'Label: ' + (i + 1),
-                        backgroundColor: this.customDataOptsSet ? customDatasetOpts.color : this.generateRandomColor(),
-                        hoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.highlight : this.generateRandomColor()
-                    }
+                    bar: function () {
+                        return {
+                            label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
+                            backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : mainColor,
+                            borderColor: this.customDataOptsSet ? customDatasetOpts.strokeColor : mainColor,
+                            hoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.highlightFill : mainColor,
+                            hoverBorderColor: this.customDataOptsSet ? customDatasetOpts.highlightStroke : mainColor
+                        };
+                    }.bind(this),
+                    line: function () {
+                        return {
+                            label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
+                            fill: false,
+                            backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : 'rgba(220,220,220,0.2)',
+                            borderColor: this.customDataOptsSet ? customDatasetOpts.strokeColor : mainColor,
+                            pointBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointColor : mainColor,
+                            pointBorderColor: this.customDataOptsSet ? customDatasetOpts.pointStrokeColor : mainColor,
+                            pointHoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightFill : mainColor,
+                            pointHoverBorderColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightStroke : mainColor
+                        };
+                    }.bind(this),
+                    pie: function () {
+                        return {
+                            label: this.customDataOptsSet ? customDatasetOpts.label : 'Label: ' + (i + 1),
+                            backgroundColor: this.chartObj.chartOpts.segmentColors.split(','),
+                            hoverBackgroundColor: this.chartObj.chartOpts.segmentHighlight.split(',')
+                        };
+                    }.bind(this)
                 };
 
-            return datasetTypes[opts.type];
+            return datasetTypes[opts.type]();
         },
 
         setCanvasContext: function () {
