@@ -224,7 +224,10 @@ define(['chartjs'], function (chartjs) {
         chartLibraryName: 'chartjs',
         chartLibrary:     chartjs,
         chartType:        'chartjs' + '-' + 'pie',
-        chartOpts:  {},
+        chartOpts:  {
+            segmentColors: '#007F7F,#006B6B,#025757,#014242,#012D2D',
+            segmentHighlight: '#007F7F,#006B6B,#025757,#014242,#012D2D'
+        },
         customDatasetOpts: [
             {
                 label: 'Apple',

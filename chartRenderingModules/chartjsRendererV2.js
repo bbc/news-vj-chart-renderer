@@ -105,7 +105,7 @@ define(function () {
                             hoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.highlightFill : mainColor,
                             hoverBorderColor: this.customDataOptsSet ? customDatasetOpts.highlightStroke : mainColor
                         };
-                    }.bind(this),
+                    },
                     line: function () {
                         return {
                             label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
@@ -117,17 +117,17 @@ define(function () {
                             pointHoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightFill : mainColor,
                             pointHoverBorderColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightStroke : mainColor
                         };
-                    }.bind(this),
+                    },
                     pie: function () {
                         return {
                             label: this.customDataOptsSet ? customDatasetOpts.label : 'Label: ' + (i + 1),
-                            backgroundColor: this.chartObj.chartOpts.segmentColors.split(','),
-                            hoverBackgroundColor: this.chartObj.chartOpts.segmentHighlight.split(',')
+                            backgroundColor: this.customDataOptsSet ? this.chartObj.chartOpts.segmentColors.split(',') : mainColor,
+                            hoverBackgroundColor: this.customDataOptsSet ? this.chartObj.chartOpts.segmentHighlight.split(',') : mainColor
                         };
-                    }.bind(this)
+                    }
                 };
 
-            return datasetTypes[opts.type]();
+            return datasetTypes[opts.type].bind(this)();
         },
 
         setCanvasContext: function () {
@@ -247,9 +247,72 @@ define(function () {
             this.chartObj.chartOpts.legendCallback = type === 'pie' ? this.pieLegendCallback : this.barLineLegendCallback.bind(this);
         },
 
+        transformScaleConfig: function (type) {
+            var tickCallback = function (value) {
+                return window.NumberFormatter.format(this.chartObj.service, value);
+            },
+                scalesConfig = {
+                    xAxes: [{
+                        scaleLabel: {
+                            fontColor: this.chartObj.chartOpts.scaleFontColor,
+                            fontFamily: this.chartObj.chartOpts.scaleFontFamily,
+                            fontSize: this.chartObj.chartOpts.scaleFontSize,
+                            fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                        },
+                        ticks: {
+                            beginAtZero: this.chartObj.chartOpts.scaleBeginAtZero,
+                            fontColor: this.chartObj.chartOpts.scaleFontColor,
+                            fontFamily: this.chartObj.chartOpts.scaleFontFamily,
+                            fontSize: this.chartObj.chartOpts.scaleFontSize,
+                            fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                        },
+                        gridLines: {
+                            display: this.chartObj.chartOpts.scaleShowVerticalLines,
+                            color: this.chartObj.chartOpts.scaleGridLineColor,
+                            lineWidth: this.chartObj.chartOpts.scaleGridLineWidth
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            fontColor: this.chartObj.chartOpts.scaleFontColor,
+                            fontFamily: this.chartObj.chartOpts.scaleFontFamily,
+                            fontSize: this.chartObj.chartOpts.scaleFontSize,
+                            fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                        },
+                        ticks: {
+                            beginAtZero: this.chartObj.chartOpts.scaleBeginAtZero,
+                            fontColor: this.chartObj.chartOpts.scaleFontColor,
+                            fontFamily: this.chartObj.chartOpts.scaleFontFamily,
+                            fontSize: this.chartObj.chartOpts.scaleFontSize,
+                            fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                        },
+                        gridLines: {
+                            display: this.chartObj.chartOpts.scaleShowHorizontalLines,
+                            color: this.chartObj.chartOpts.scaleGridLineColor,
+                            lineWidth: this.chartObj.chartOpts.scaleGridLineWidth
+                        }
+                    }]
+                };
+
+            if (this.chartObj.chartOpts.scaleStartValue) {
+                scalesConfig.yAxes[0].ticks.min = this.chartObj.chartOpts.scaleStartValue;
+            }
+
+            if (type === 'horizontalBar') {
+                scalesConfig.yAxes[0].ticks.display = this.chartObj.chartOpts.scaleShowLabels;
+                scalesConfig.xAxes[0].ticks.callback = tickCallback.bind(this);
+            } else {
+                scalesConfig.xAxes[0].ticks.display = this.chartObj.chartOpts.scaleShowLabels;
+                scalesConfig.yAxes[0].ticks.callback = tickCallback.bind(this);
+            }
+
+            this.chartObj.chartOpts.scales = scalesConfig;
+        },
+
         transformOptions: function (type) {
             this.transformAnimationConfig(type);
             this.transformLegendConfig(type);
+            this.transformScaleConfig(type);
         }
     };
 
