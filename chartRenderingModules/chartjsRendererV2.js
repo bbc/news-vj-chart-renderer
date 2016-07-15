@@ -107,7 +107,7 @@ define(function () {
                         };
                     },
                     line: function () {
-                        return {
+                        var dataset = {
                             label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
                             fill: false,
                             backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : 'rgba(220,220,220,0.2)',
@@ -117,6 +117,17 @@ define(function () {
                             pointHoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightFill : mainColor,
                             pointHoverBorderColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightStroke : mainColor
                         };
+
+                        if (this.customDataOptsSet) {
+                            dataset.lineTension = this.chartObj.chartOpts.bezierCurve ? this.chartObj.chartOpts.bezierCurveTension : 0;
+                            dataset.fill = this.chartObj.chartOpts.datasetFill;
+                            dataset.borderWidth = this.chartObj.chartOpts.datasetStrokeWidth;
+                            dataset.pointRadius = this.chartObj.chartOpts.pointDot ? this.chartObj.chartOpts.pointDotRadius : 0;
+                            dataset.pointBorderWidth = this.chartObj.chartOpts.pointDotStrokeWidth;
+                            dataset.pointHitRadius = this.chartObj.chartOpts.pointHitDetectionRadius;
+                        }
+
+                        return dataset;
                     },
                     pie: function () {
                         return {
