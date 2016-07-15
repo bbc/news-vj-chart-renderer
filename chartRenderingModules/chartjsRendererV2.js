@@ -102,8 +102,7 @@ define(function () {
                             label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
                             backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : mainColor,
                             borderColor: this.customDataOptsSet ? customDatasetOpts.strokeColor : mainColor,
-                            hoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.highlightFill : mainColor,
-                            hoverBorderColor: this.customDataOptsSet ? customDatasetOpts.highlightStroke : mainColor
+                            hoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.highlightFill : mainColor
                         };
                     },
                     line: function () {
@@ -320,7 +319,7 @@ define(function () {
             this.chartObj.chartOpts.scales = scalesConfig;
         },
 
-        transformTooltips: function () {
+        transformTooltips: function (type) {
             this.chartObj.chartOpts.tooltips = {
                 mode: 'label',
                 titleFontFamily: this.chartObj.chartOpts.tooltipTitleFontFamily,
@@ -332,13 +331,16 @@ define(function () {
                 bodyFontStyle: this.chartObj.chartOpts.tooltipFontStyle,
                 bodyFontColor: this.chartObj.chartOpts.tooltipFontColor,
                 bodySpacing: 4,
-                caretSize: 0,
                 cornerRadius: 4,
                 multiKeyBackground: '#fff',
                 callbacks: {
                     label: function (tooltipItem, data) {
-                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                        return window.NumberFormatter.format(this.chartObj.service, value);
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index],
+                            tooltipText = window.NumberFormatter.format(this.chartObj.service, value);
+                        if (type === 'pie') {
+                            tooltipText = data.labels[tooltipItem.index] + ': ' + tooltipText;
+                        }
+                        return tooltipText;
                     }.bind(this)
                 }
             };
@@ -350,7 +352,7 @@ define(function () {
             if (type !== 'pie') {
                 this.transformScaleConfig(type);
             }
-            this.transformTooltips();
+            this.transformTooltips(type);
         }
     };
 
