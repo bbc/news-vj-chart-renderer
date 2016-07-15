@@ -309,12 +309,37 @@ define(function () {
             this.chartObj.chartOpts.scales = scalesConfig;
         },
 
+        transformTooltips: function () {
+            this.chartObj.chartOpts.tooltips = {
+                mode: 'label',
+                titleFontFamily: this.chartObj.chartOpts.tooltipTitleFontFamily,
+                titleFontSize: this.chartObj.chartOpts.tooltipTitleFontSize,
+                titleFontStyle: this.chartObj.chartOpts.tooltipTitleFontStyle,
+                titleFontColor: this.chartObj.chartOpts.tooltipTitleFontColor,
+                bodyFontFamily: this.chartObj.chartOpts.tooltipFontFamily,
+                bodyFontSize: this.chartObj.chartOpts.tooltipFontSize,
+                bodyFontStyle: this.chartObj.chartOpts.tooltipFontStyle,
+                bodyFontColor: this.chartObj.chartOpts.tooltipFontColor,
+                bodySpacing: 4,
+                caretSize: 0,
+                cornerRadius: 4,
+                multiKeyBackground: '#fff',
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return window.NumberFormatter.format(this.chartObj.service, value);
+                    }.bind(this)
+                }
+            };
+        },
+
         transformOptions: function (type) {
             this.transformAnimationConfig(type);
             this.transformLegendConfig(type);
             if (type !== 'pie') {
                 this.transformScaleConfig(type);
             }
+            this.transformTooltips();
         }
     };
 
