@@ -146,16 +146,21 @@ define(function () {
 
         renderChart: function () {
             var chartType = this.getChartType(),
+                config,
                 chart;
 
             this.setCanvasContext();
             this.transformOptions(chartType);
 
-            chart = new this.chartObj.chartLibrary(this.canvasContext, {
+            config = {
                 type: chartType,
                 data: this.data,
                 options: this.chartObj.chartOpts
-            });
+            };
+
+            console.log(config);
+
+            chart = new this.chartObj.chartLibrary(this.canvasContext, config);
 
             return chart;
         },
