@@ -3,7 +3,7 @@ requirejs.config({
     paths: {
         app: 'js/app',
         newsVjChartRenderer: '../newsVjChartRenderer',
-        chartJsRenderingModule: '../chartRenderingModules/chartjsRendererV2',
+        chartJsRenderingModule: '../chartRenderingModules/chartjsRenderer',
         chartjs: 'js/libs/chartjs/Chart.min',
         fixtureData : 'fixtureData/fixtureData'
     }
