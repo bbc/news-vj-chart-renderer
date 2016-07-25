@@ -315,9 +315,11 @@ define(function () {
 
             if (type === 'horizontalBar') {
                 scalesConfig.yAxes[0].ticks.display = this.chartObj.chartOpts.scaleShowLabels;
+                scalesConfig.yAxes[0].maxBarThickness = 48;
                 scalesConfig.xAxes[0].ticks.callback = tickCallback.bind(this);
             } else {
                 scalesConfig.xAxes[0].ticks.display = this.chartObj.chartOpts.scaleShowLabels;
+                scalesConfig.xAxes[0].maxBarThickness = 48;
                 scalesConfig.yAxes[0].ticks.callback = tickCallback.bind(this);
             }
 
