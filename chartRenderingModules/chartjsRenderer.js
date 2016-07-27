@@ -188,11 +188,6 @@ define(function () {
                             duration: 1000
                         };
 
-                        delete this.chartObj.chartOpts.animateRotate;
-                        delete this.chartObj.chartOpts.animateScale;
-                        delete this.chartObj.chartOpts.animationEasing;
-                        delete this.chartObj.chartOpts.animationSteps;
-
                         return newAnimationObject;
                     }.bind(this)
                 };
