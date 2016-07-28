@@ -20,7 +20,7 @@ module.exports = function (grunt) {
                             newsVjChartRenderer: 'newsVjChartRenderer',
                             chartJsRenderingModule: 'chartRenderingModules/chartjsRenderer',
                             fixtureData: 'examples/fixtureData/fixtureData',
-                            chartjs: 'examples/js/libs/chartjs/Chart'
+                            chartjs: 'examples/js/libs/chartjs/Chart.min'
                         }
                     }
                 }
