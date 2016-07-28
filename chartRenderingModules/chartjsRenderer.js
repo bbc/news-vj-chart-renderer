@@ -158,8 +158,6 @@ define(function () {
                 options: this.chartObj.chartOpts
             };
 
-            console.log(config);
-
             chart = new this.chartObj.chartLibrary(this.canvasContext, config);
 
             return chart;
