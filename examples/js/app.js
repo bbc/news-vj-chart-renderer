@@ -4,7 +4,7 @@ requirejs.config({
         app: 'js/app',
         newsVjChartRenderer: '../newsVjChartRenderer',
         chartJsRenderingModule: '../chartRenderingModules/chartjsRenderer',
-        chartjs: 'js/libs/chartjs/chart.min',
+        chartjs: 'js/libs/chartjs/Chart.min',
         fixtureData : 'fixtureData/fixtureData'
     }
 });

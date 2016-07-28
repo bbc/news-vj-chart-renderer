@@ -20,7 +20,7 @@ module.exports = function (grunt) {
                             newsVjChartRenderer: 'newsVjChartRenderer',
                             chartJsRenderingModule: 'chartRenderingModules/chartjsRenderer',
                             fixtureData: 'examples/fixtureData/fixtureData',
-                            chartjs: 'examples/js/libs/chartjs/chart.min'
+                            chartjs: 'examples/js/libs/chartjs/Chart.min'
                         }
                     }
                 }
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
             client: {
                 src: [
                     'Gruntfile.js',
-                    'chartRenderer.js',
+                    'newsVjChartRenderer.js',
                     'chartRenderingModules/chartjsRenderer.js',
                     'examples/js/app.js',
                     'examples/fixtureData/fixtureData.js',

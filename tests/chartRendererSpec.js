@@ -139,11 +139,12 @@ define([
                     var renderer = newsVjChartRenderer.initChart(fixtureData.chartjs.pie_chart_default);
                     renderer.convertPieData();
 
-                    expect(renderer.data.hasOwnProperty('datasets')).toEqual(false);
-                    expect(renderer.data.hasOwnProperty('labels')).toEqual(false);
+                    expect(renderer.data.hasOwnProperty('datasets')).toEqual(true);
+                    expect(renderer.data.hasOwnProperty('labels')).toEqual(true);
 
                     expect(renderer.customDataOptsSet).toEqual(false);
-                    expect(renderer.data.length).toEqual(7);
+                    expect(renderer.data.datasets.length).toEqual(1);
+                    expect(renderer.data.labels.length).toEqual(7);
                 });
 
                 it('One dataset with custom options', function () {
@@ -151,12 +152,13 @@ define([
                     renderer.useCustomDatasetOpts();
                     renderer.convertPieData();
 
-                    expect(renderer.data.hasOwnProperty('datasets')).toEqual(false);
-                    expect(renderer.data.hasOwnProperty('labels')).toEqual(false);
+                    expect(renderer.data.hasOwnProperty('datasets')).toEqual(true);
+                    expect(renderer.data.hasOwnProperty('labels')).toEqual(true);
 
                     expect(renderer.customDataOptsSet).toEqual(true);
-                    expect(renderer.data[2].label).toEqual('Facebook');
-                    expect(renderer.data.length).toEqual(4);
+                    expect(renderer.data.labels[2]).toEqual('Facebook');
+                    expect(renderer.data.datasets.length).toEqual(1);
+                    expect(renderer.data.labels.length).toEqual(4);
                 });
 
             });
