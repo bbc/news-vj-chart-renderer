@@ -322,6 +322,7 @@ define(function () {
         transformTooltips: function (type) {
             this.chartObj.chartOpts.tooltips = {
                 mode: 'label',
+                enabled: this.chartObj.chartOpts.showTooltips,
                 titleFontFamily: this.chartObj.chartOpts.tooltipTitleFontFamily,
                 titleFontSize: this.chartObj.chartOpts.tooltipTitleFontSize,
                 titleFontStyle: this.chartObj.chartOpts.tooltipTitleFontStyle,
