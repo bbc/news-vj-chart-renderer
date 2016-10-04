@@ -94,49 +94,49 @@ define(function () {
         },
 
         getDataset: function (opts) {
-            var i = opts.i,
-                customDatasetOpts = opts.customDatasetOpts[i],
-                mainColor = opts.mainColor,
-                datasetTypes = {
-                    bar: function () {
-                        return {
-                            label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
-                            backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : mainColor,
-                            borderColor: this.customDataOptsSet ? customDatasetOpts.strokeColor : mainColor,
-                            hoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.highlightFill : mainColor
-                        };
-                    },
-                    line: function () {
-                        var dataset = {
-                            label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
-                            fill: false,
-                            backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : 'rgba(220,220,220,0.2)',
-                            borderColor: this.customDataOptsSet ? customDatasetOpts.strokeColor : mainColor,
-                            pointBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointColor : mainColor,
-                            pointBorderColor: this.customDataOptsSet ? customDatasetOpts.pointStrokeColor : mainColor,
-                            pointHoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightFill : mainColor,
-                            pointHoverBorderColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightStroke : mainColor
-                        };
+            var i = opts.i;
+            var customDatasetOpts = opts.customDatasetOpts[i];
+            var mainColor = opts.mainColor;
+            var datasetTypes = {
+                bar: function () {
+                    return {
+                        label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
+                        backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : mainColor,
+                        borderColor: this.customDataOptsSet ? customDatasetOpts.strokeColor : mainColor,
+                        hoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.highlightFill : mainColor
+                    };
+                },
+                line: function () {
+                    var dataset = {
+                        label: this.customDataOptsSet ? customDatasetOpts.label : 'Dataset: ' + (i + 1),
+                        fill: false,
+                        backgroundColor: this.customDataOptsSet ? customDatasetOpts.fillColor : 'rgba(220,220,220,0.2)',
+                        borderColor: this.customDataOptsSet ? customDatasetOpts.strokeColor : mainColor,
+                        pointBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointColor : mainColor,
+                        pointBorderColor: this.customDataOptsSet ? customDatasetOpts.pointStrokeColor : mainColor,
+                        pointHoverBackgroundColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightFill : mainColor,
+                        pointHoverBorderColor: this.customDataOptsSet ? customDatasetOpts.pointHighlightStroke : mainColor
+                    };
 
-                        if (this.customDataOptsSet) {
-                            dataset.lineTension = this.chartObj.chartOpts.bezierCurve ? this.chartObj.chartOpts.bezierCurveTension : 0;
-                            dataset.fill = this.chartObj.chartOpts.datasetFill;
-                            dataset.borderWidth = this.chartObj.chartOpts.datasetStrokeWidth;
-                            dataset.pointRadius = this.chartObj.chartOpts.pointDot ? this.chartObj.chartOpts.pointDotRadius : 0;
-                            dataset.pointBorderWidth = this.chartObj.chartOpts.pointDotStrokeWidth;
-                            dataset.pointHitRadius = this.chartObj.chartOpts.pointHitDetectionRadius;
-                        }
-
-                        return dataset;
-                    },
-                    pie: function () {
-                        return {
-                            label: this.customDataOptsSet ? customDatasetOpts.label : 'Label: ' + (i + 1),
-                            backgroundColor: this.customDataOptsSet ? this.chartObj.chartOpts.segmentColors.split(',') : mainColor,
-                            hoverBackgroundColor: this.customDataOptsSet ? this.chartObj.chartOpts.segmentHighlight.split(',') : mainColor
-                        };
+                    if (this.customDataOptsSet) {
+                        dataset.lineTension = this.chartObj.chartOpts.bezierCurve ? this.chartObj.chartOpts.bezierCurveTension : 0;
+                        dataset.fill = this.chartObj.chartOpts.datasetFill;
+                        dataset.borderWidth = this.chartObj.chartOpts.datasetStrokeWidth;
+                        dataset.pointRadius = this.chartObj.chartOpts.pointDot ? this.chartObj.chartOpts.pointDotRadius : 0;
+                        dataset.pointBorderWidth = this.chartObj.chartOpts.pointDotStrokeWidth;
+                        dataset.pointHitRadius = this.chartObj.chartOpts.pointHitDetectionRadius;
                     }
-                };
+
+                    return dataset;
+                },
+                pie: function () {
+                    return {
+                        label: this.customDataOptsSet ? customDatasetOpts.label : 'Label: ' + (i + 1),
+                        backgroundColor: this.customDataOptsSet ? this.chartObj.chartOpts.segmentColors.split(',') : mainColor,
+                        hoverBackgroundColor: this.customDataOptsSet ? this.chartObj.chartOpts.segmentHighlight.split(',') : mainColor
+                    };
+                }
+            };
 
             return datasetTypes[opts.type].bind(this)();
         },
@@ -359,8 +359,12 @@ define(function () {
         transformOptions: function (type) {
             this.transformAnimationConfig(type);
             this.transformLegendConfig(type);
+
             if (type !== 'pie') {
                 this.transformScaleConfig(type);
+            } else {
+                var chartOpts = this.chartObj.chartOpts;
+                chartOpts.cutoutPercentage = chartOpts.cutoutPercentage || chartOpts.percentageInnerCutout || 0;
             }
             this.transformTooltips(type);
         }
