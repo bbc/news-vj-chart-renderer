@@ -302,8 +302,15 @@ define(function () {
                     }]
                 };
 
-            if (this.chartObj.chartOpts.scaleStartValue) {
-                scalesConfig.yAxes[0].ticks.min = this.chartObj.chartOpts.scaleStartValue;
+            if (this.chartObj.chartOpts.scaleOverride) {
+                var min = this.chartObj.chartOpts.scaleStartValue;
+                var steps = this.chartObj.chartOpts.scaleSteps;
+                var stepSize = this.chartObj.chartOpts.scaleStepWidth;
+                var max = min + steps * stepSize;
+
+                scalesConfig.yAxes[0].ticks.min = min;
+                scalesConfig.yAxes[0].ticks.max = max;
+                scalesConfig.yAxes[0].ticks.fixedStepSize = stepSize;
             }
 
             if (type === 'horizontalBar') {
@@ -362,4 +369,4 @@ define(function () {
     };
 
     return publicApi;
-});
+}
