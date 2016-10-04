@@ -1,13 +1,14 @@
 define(function () {
     'use strict';
 
-    var publicApi = {},
-        Chart = function (chartObj) {
-            this.chartObj = chartObj;
-            this.customDataOptsSet = false;
-            this.data = null;
-            this.moduleName = 'chartjs';
-        };
+    var publicApi = {};
+
+    var Chart = function (chartObj) {
+        this.chartObj = chartObj;
+        this.customDataOptsSet = false;
+        this.data = null;
+        this.moduleName = 'chartjs';
+    };
 
     Chart.prototype = {
         useCustomDatasetOpts: function () {
@@ -258,49 +259,50 @@ define(function () {
         transformScaleConfig: function (type) {
             var tickCallback = function (value) {
                 return window.NumberFormatter.format(this.chartObj.service, value);
-            },
-                scalesConfig = {
-                    xAxes: [{
-                        scaleLabel: {
-                            fontColor: this.chartObj.chartOpts.scaleFontColor,
-                            fontFamily: this.chartObj.chartOpts.scaleFontFamily,
-                            fontSize: this.chartObj.chartOpts.scaleFontSize,
-                            fontStyle: this.chartObj.chartOpts.scaleFontStyle
-                        },
-                        ticks: {
-                            beginAtZero: this.chartObj.chartOpts.scaleBeginAtZero,
-                            fontColor: this.chartObj.chartOpts.scaleFontColor,
-                            fontFamily: this.chartObj.chartOpts.scaleFontFamily,
-                            fontSize: this.chartObj.chartOpts.scaleFontSize,
-                            fontStyle: this.chartObj.chartOpts.scaleFontStyle
-                        },
-                        gridLines: {
-                            display: this.chartObj.chartOpts.scaleShowVerticalLines,
-                            color: this.chartObj.chartOpts.scaleGridLineColor,
-                            lineWidth: this.chartObj.chartOpts.scaleGridLineWidth
-                        }
-                    }],
-                    yAxes: [{
-                        scaleLabel: {
-                            fontColor: this.chartObj.chartOpts.scaleFontColor,
-                            fontFamily: this.chartObj.chartOpts.scaleFontFamily,
-                            fontSize: this.chartObj.chartOpts.scaleFontSize,
-                            fontStyle: this.chartObj.chartOpts.scaleFontStyle
-                        },
-                        ticks: {
-                            beginAtZero: this.chartObj.chartOpts.scaleBeginAtZero,
-                            fontColor: this.chartObj.chartOpts.scaleFontColor,
-                            fontFamily: this.chartObj.chartOpts.scaleFontFamily,
-                            fontSize: this.chartObj.chartOpts.scaleFontSize,
-                            fontStyle: this.chartObj.chartOpts.scaleFontStyle
-                        },
-                        gridLines: {
-                            display: this.chartObj.chartOpts.scaleShowHorizontalLines,
-                            color: this.chartObj.chartOpts.scaleGridLineColor,
-                            lineWidth: this.chartObj.chartOpts.scaleGridLineWidth
-                        }
-                    }]
-                };
+            };
+
+            var scalesConfig = {
+                xAxes: [{
+                    scaleLabel: {
+                        fontColor: this.chartObj.chartOpts.scaleFontColor,
+                        fontFamily: this.chartObj.chartOpts.scaleFontFamily,
+                        fontSize: this.chartObj.chartOpts.scaleFontSize,
+                        fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                    },
+                    ticks: {
+                        beginAtZero: this.chartObj.chartOpts.scaleBeginAtZero,
+                        fontColor: this.chartObj.chartOpts.scaleFontColor,
+                        fontFamily: this.chartObj.chartOpts.scaleFontFamily,
+                        fontSize: this.chartObj.chartOpts.scaleFontSize,
+                        fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                    },
+                    gridLines: {
+                        display: this.chartObj.chartOpts.scaleShowVerticalLines,
+                        color: this.chartObj.chartOpts.scaleGridLineColor,
+                        lineWidth: this.chartObj.chartOpts.scaleGridLineWidth
+                    }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        fontColor: this.chartObj.chartOpts.scaleFontColor,
+                        fontFamily: this.chartObj.chartOpts.scaleFontFamily,
+                        fontSize: this.chartObj.chartOpts.scaleFontSize,
+                        fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                    },
+                    ticks: {
+                        beginAtZero: this.chartObj.chartOpts.scaleBeginAtZero,
+                        fontColor: this.chartObj.chartOpts.scaleFontColor,
+                        fontFamily: this.chartObj.chartOpts.scaleFontFamily,
+                        fontSize: this.chartObj.chartOpts.scaleFontSize,
+                        fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                    },
+                    gridLines: {
+                        display: this.chartObj.chartOpts.scaleShowHorizontalLines,
+                        color: this.chartObj.chartOpts.scaleGridLineColor,
+                        lineWidth: this.chartObj.chartOpts.scaleGridLineWidth
+                    }
+                }]
+            };
 
             if (this.chartObj.chartOpts.scaleOverride) {
                 var min = this.chartObj.chartOpts.scaleStartValue;
@@ -369,4 +371,4 @@ define(function () {
     };
 
     return publicApi;
-}
+});
