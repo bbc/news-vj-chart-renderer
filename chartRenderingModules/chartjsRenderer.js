@@ -202,7 +202,9 @@ define(function () {
 
             // if animation was initially set to boolean false, set duration to 0
             if (initialAnimationValue === false) {
-                this.chartObj.chartOpts.animation.duration = 0;
+                this.chartObj.chartOpts.animation = {
+                    duration: 0
+                };
             }
         },
 
