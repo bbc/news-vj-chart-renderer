@@ -276,7 +276,10 @@ define(function () {
                         fontColor: this.chartObj.chartOpts.scaleFontColor,
                         fontFamily: this.chartObj.chartOpts.scaleFontFamily,
                         fontSize: this.chartObj.chartOpts.scaleFontSize,
-                        fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                        fontStyle: this.chartObj.chartOpts.scaleFontStyle,
+                        maxRotation: 0,
+                        autoSkip: true,
+                        autoSkipPadding: 20
                     },
                     gridLines: {
                         display: this.chartObj.chartOpts.scaleShowVerticalLines,
@@ -296,7 +299,10 @@ define(function () {
                         fontColor: this.chartObj.chartOpts.scaleFontColor,
                         fontFamily: this.chartObj.chartOpts.scaleFontFamily,
                         fontSize: this.chartObj.chartOpts.scaleFontSize,
-                        fontStyle: this.chartObj.chartOpts.scaleFontStyle
+                        fontStyle: this.chartObj.chartOpts.scaleFontStyle,
+                        maxRotation: 0,
+                        autoSkip: true,
+                        autoSkipPadding: 20
                     },
                     gridLines: {
                         display: this.chartObj.chartOpts.scaleShowHorizontalLines,
