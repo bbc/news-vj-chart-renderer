@@ -318,10 +318,11 @@ define(function () {
                 var steps = this.chartObj.chartOpts.scaleSteps;
                 var stepSize = this.chartObj.chartOpts.scaleStepWidth;
                 var max = min + steps * stepSize;
+                var axis = (type === 'horizontalBar') ? scalesConfig.xAxes : scalesConfig.yAxes;
 
-                scalesConfig.yAxes[0].ticks.min = min;
-                scalesConfig.yAxes[0].ticks.max = max;
-                scalesConfig.yAxes[0].ticks.fixedStepSize = stepSize;
+                axis[0].ticks.min = min;
+                axis[0].ticks.max = max;
+                axis[0].ticks.fixedStepSize = stepSize;
             }
 
             if (type === 'horizontalBar') {
