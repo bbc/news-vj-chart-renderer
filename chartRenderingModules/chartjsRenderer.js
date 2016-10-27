@@ -260,7 +260,8 @@ define(function () {
 
         transformScaleConfig: function (type) {
             var tickCallback = function (value) {
-                return window.NumberFormatter.format(this.chartObj.service, value);
+                var valueFloatRounded = parseFloat(value.toFixed(8)); // Fix floating point precision issues.
+                return window.NumberFormatter.format(this.chartObj.service, valueFloatRounded);
             };
 
             var scalesConfig = {
