@@ -374,6 +374,7 @@ define(function () {
                 this.transformScaleConfig(type);
             } else {
                 var chartOpts = this.chartObj.chartOpts;
+                chartOpts.aspectRatio = 2;
                 chartOpts.cutoutPercentage = chartOpts.cutoutPercentage || chartOpts.percentageInnerCutout || 0;
             }
             this.transformTooltips(type);
